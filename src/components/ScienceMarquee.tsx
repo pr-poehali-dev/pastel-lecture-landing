@@ -1,6 +1,5 @@
-
 import { useState, useRef, useEffect } from "react";
-import { motion } from "react-magic-motion";
+import { motion } from "../components/react-magic-motion";
 import Icon from "@/components/ui/icon";
 
 // Определяем науки
@@ -36,7 +35,10 @@ const ScienceMarquee = () => {
   // Эффект для возобновления движения при клике за пределами маркера
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (marqueeRef.current && !marqueeRef.current.contains(event.target as Node)) {
+      if (
+        marqueeRef.current &&
+        !marqueeRef.current.contains(event.target as Node)
+      ) {
         setIsPaused(false);
         setSelectedScience(null);
       }
@@ -63,9 +65,9 @@ const ScienceMarquee = () => {
             ease: "linear",
           },
         }}
-        style={{ 
+        style={{
           width: "fit-content",
-          animationPlayState: isPaused ? "paused" : "running"
+          animationPlayState: isPaused ? "paused" : "running",
         }}
       >
         {duplicatedSciences.map((science, index) => (
@@ -78,17 +80,17 @@ const ScienceMarquee = () => {
             }`}
             onClick={() => handleScienceClick(science.id)}
           >
-            <Icon 
-              name={science.icon} 
+            <Icon
+              name={science.icon}
               className={`mr-2 w-5 h-5 ${
                 selectedScience === science.id ? "text-white" : "text-[#8A63D2]"
-              }`} 
+              }`}
             />
             <span className="font-medium">{science.name}</span>
           </div>
         ))}
       </motion.div>
-      
+
       {selectedScience && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -96,21 +98,28 @@ const ScienceMarquee = () => {
           transition={{ duration: 0.3 }}
           className="mt-8 p-6 bg-white rounded-xl shadow-md"
         >
-          {sciences.find(s => s.id === selectedScience) && (
+          {sciences.find((s) => s.id === selectedScience) && (
             <div className="flex flex-col md:flex-row gap-6 items-start">
               <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 bg-[#F8F5FC] rounded-2xl flex items-center justify-center">
-                <Icon 
-                  name={sciences.find(s => s.id === selectedScience)?.icon || "Book"} 
-                  className="w-8 h-8 md:w-10 md:h-10 text-[#8A63D2]" 
+                <Icon
+                  name={
+                    sciences.find((s) => s.id === selectedScience)?.icon ||
+                    "Book"
+                  }
+                  className="w-8 h-8 md:w-10 md:h-10 text-[#8A63D2]"
                 />
               </div>
               <div>
                 <h3 className="text-xl md:text-2xl font-bold text-[#363A59] font-montserrat mb-2">
-                  {sciences.find(s => s.id === selectedScience)?.name}
+                  {sciences.find((s) => s.id === selectedScience)?.name}
                 </h3>
                 <p className="text-[#5B5E71] mb-4">
-                  Расширяйте свои знания в области {sciences.find(s => s.id === selectedScience)?.name.toLowerCase()} 
-                  с нашими профессиональными курсами. От базовых понятий до продвинутых концепций.
+                  Расширяйте свои знания в области{" "}
+                  {sciences
+                    .find((s) => s.id === selectedScience)
+                    ?.name.toLowerCase()}
+                  с нашими профессиональными курсами. От базовых понятий до
+                  продвинутых концепций.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-[#F8F5FC] text-[#8A63D2] rounded-full text-sm">
